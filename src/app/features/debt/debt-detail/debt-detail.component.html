@@ -1,1 +1,26 @@
-<p>debt-detail works!</p>
+<div class="max-w-lg mx-auto mt-8 p-6 bg-white rounded-2xl shadow-lg">
+  <h2 class="text-xl font-bold mb-4">Detalle de la deuda</h2>
+
+  <ng-container *ngIf="debt; else loading">
+    <div class="space-y-2">
+      <p><strong>ID:</strong> {{ debt.id }}</p>
+      <p><strong>Descripción:</strong> {{ debt.description }}</p>
+      <p><strong>Monto:</strong> ${{ debt.amount }}</p>
+      <p><strong>Fecha:</strong> {{ debt.createdAt | date: 'short' }}</p>
+      <p>
+        <strong>Estado:</strong>
+        <span
+          class="px-2 py-1 rounded text-white"
+          [class.bg-green-500]="debt.paid"
+          [class.bg-red-500]="!debt.paid"
+        >
+          {{ debt.paid ? "Pagada" : "Pendiente" }}
+        </span>
+      </p>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <p>Cargando deuda...</p>
+  </ng-template>
+</div>

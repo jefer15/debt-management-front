@@ -6,8 +6,8 @@ export const routes: Routes = [
   { path: 'register', loadComponent: () => import('./features/auth/register/register.component').then(m => m.RegisterComponent) },
 
   {
-    path: 'debts',
+    path: '',
     loadComponent: () => import('./features/debt/debt.component').then(m => m.DebtComponent),
-    canActivate: [authGuard]
+    // canActivate: [authGuard]
   },
 ];
