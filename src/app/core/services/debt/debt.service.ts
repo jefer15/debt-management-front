@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DebtService {
-  private apiUrl = `${environment.uri}/task`;
-  
+  private apiUrl = `${environment.uri}/debt`;
+
   constructor(private http: HttpClient) {}
 
   getDebts(status: 'all' | 'completed' | 'pending' = 'all'){

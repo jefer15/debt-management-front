@@ -8,6 +8,6 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./features/debt/debt.component').then(m => m.DebtComponent),
-    // canActivate: [authGuard]
+    canActivate: [authGuard]
   },
 ];

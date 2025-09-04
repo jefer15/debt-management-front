@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
           showConfirmButton: true,
           showDenyButton: false
         }).then((result) => {
-          this._router.navigate(['/task'])
+          this._router.navigate(['/'])
         });
       },
       error: () => {
