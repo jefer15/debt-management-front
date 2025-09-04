@@ -1,8 +1,5 @@
 <h2 class="bg-[#4b5172]" mat-dialog-title>
     Deudas
-    <button mat-icon-button aria-label="Cerrar diálogo" (click)="close()" class="float-right">
-        <mat-icon>close</mat-icon>
-    </button>
 </h2>
 
 <mat-dialog-content>
@@ -13,8 +10,8 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="w-full">
-            <mat-label>nombre</mat-label>
-            <input matInput type="number" formControlName="amount" />
+            <mat-label>Monto</mat-label>
+            <input matInput type="number" formControlName="amount"/>
             <mat-error *ngIf="debtForm.get('amount')?.hasError('required')">
                 El monto es obligatorio
             </mat-error>
@@ -25,8 +22,8 @@
     </form>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end" class="p-4 bg-gray-50">
-    <button mat-button class="mr-2 text-gray-700" (click)="close()">Cancelar</button>
+<mat-dialog-actions align="end" class="p-4">
+    <button mat-raised-button class="mr-2 text-gray-700" (click)="close()">Cancelar</button>
     <button mat-raised-button style="background-color: #4b5172;" class="text-white" [disabled]="debtForm.invalid"
-        (click)="save()">{{ data.data.id ? 'Actualizar' : 'Guardar' }}</button>
+        (click)="save()">{{ data?.action === 'edit' ? 'Actualizar' : 'Guardar' }}</button>
 </mat-dialog-actions>

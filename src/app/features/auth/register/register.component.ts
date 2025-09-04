@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth/auth.service';
+import { User } from '../../../core/models/auth/auth.model';
 
 
 @Component({
@@ -51,24 +52,10 @@ export class RegisterComponent {
   }
 
   register() {
-    if (!this.registerForm.valid) {
-      Swal.fire({
-        title: "Registro",
-        text: "Datos incorrectos.",
-        icon: 'warning',
-        confirmButtonText: 'Cerrar',
-        showConfirmButton: true,
-        showDenyButton: false
-      })
-      return
-    }
+    if (!this.registerForm.valid) return
 
-    const data = {
-      name: this.registerForm.get('name')?.value,
-      email: this.registerForm.get('email')?.value,
-      password: this.registerForm.get('password')?.value
-    }
-
+    const data = this.registerForm.value as { name: string; email: string; password: string };
+    
     this._authService.saveUser(data).subscribe({
       next: (res: any) => {
         Swal.fire({

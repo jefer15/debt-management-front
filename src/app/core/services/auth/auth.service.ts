@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, of } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../environments/environment";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { User, AuthResponse } from '../../models/auth/auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +15,20 @@ export class AuthService {
 
   constructor(private _http: HttpClient, private router: Router) { }
 
-  login(data: any) {
-    return this._http.post(this.apiUrl, data).pipe(map((response: any) => {
-      if(response){
-        this.setToken(response.token);
-      }
-      return response;
-    }));
+  login(data: { email: string; password: string }): Observable<AuthResponse> {
+    return this._http.post<AuthResponse>(this.apiUrl, data).pipe(
+      map((response: AuthResponse) => {
+        if (response?.token) {
+          this.setToken(response.token);
+          localStorage.setItem('user', JSON.stringify(response.user));
+        }
+        return response;
+      })
+    );
   }
 
-  saveUser(data: any) {
-    return this._http.post(`${this.apiUrl}/register`, data).pipe(map((response: any) => {
-      return response;
-    }));
+  saveUser(data: { name: string; email: string; password: string }): Observable<User> {
+    return this._http.post<User>(`${this.apiUrl}/register`, data);
   }
 
   getToken(): string | null {
@@ -41,6 +43,7 @@ export class AuthService {
   getUser(): string | null {
     return localStorage.getItem('user');
   }
+
   logout(): void {
     localStorage.clear();
     sessionStorage.clear();

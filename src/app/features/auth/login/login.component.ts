@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth/auth.service';
+import { AuthResponse } from '../../../core/models/auth/auth.model';
 
 @Component({
   selector: 'app-login',
@@ -45,13 +46,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const data = {
-      email: this.loginForm.get('email')?.value,
-      password: this.loginForm.get('password')?.value
-    }
+    if (this.loginForm.invalid) return;
 
-    this._authService.login(data).subscribe({
-      next: (res: any) => {
+    this._authService.login(this.loginForm.value).subscribe({
+      next: (res: AuthResponse) => {
         Swal.fire({
           title: "Login Exitoso",
           text: "A continuación entrará a la plataforma",

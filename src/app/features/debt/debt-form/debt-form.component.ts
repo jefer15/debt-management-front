@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { DebtService } from '../../../core/services/debt/debt.service';
+import { Debt } from '../../../core/models/debt/debt.model';
 
 @Component({
   selector: 'app-debt-form',
@@ -49,23 +50,27 @@ export class DebtFormComponent implements OnInit {
   }
 
   save() {
-    if (this.debtForm.valid) return;
+    if (this.debtForm.invalid) return;
     const data = {
       description: this.debtForm.value.description,
       amount: this.debtForm.value.amount,
       paid: false
     }
 
-    if (this.data.id) {
-      this._debtService.editDebt(this.data.id, data).subscribe({
+    if (this.data?.action === 'edit') {
+      this._debtService.editDebt(this.data.data.id, data).subscribe({
         next: () => {
-          Swal.fire('Success', 'Debt updated successfully', 'success').then(() => this.close());
+          Swal.fire('Deudas', 'Deuda actualizada correctamente', 'success').then(() =>
+            this.dialogRef.close(true)
+          );
         }
       });
     } else {
       this._debtService.addDebt(data).subscribe({
         next: () => {
-          Swal.fire('Success', 'Debt added successfully', 'success').then(() => this.close());
+          Swal.fire('Deudas', 'Deuda agregada correctamente', 'success').then(() =>
+            this.dialogRef.close(true)
+          );
         }
       });
     }

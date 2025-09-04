@@ -1,8 +1,17 @@
+import { User } from "../auth/auth.model";
+
 export interface Debt {
   id: number;
   description: string;
   amount: number;
-  createdAt: Date;
   paid: boolean;
-  userId: number;
+  createdAt?: string;
+  updatedAt?: string;
+  user?: User
+}
+
+export interface DebtSummary {
+  total: number;
+  paid: number;
+  pending: number;
 }

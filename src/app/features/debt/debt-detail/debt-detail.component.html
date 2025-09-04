@@ -1,26 +1,72 @@
-<div class="max-w-lg mx-auto mt-8 p-6 bg-white rounded-2xl shadow-lg">
-  <h2 class="text-xl font-bold mb-4">Detalle de la deuda</h2>
+<h2 class="bg-[#4b5172]" mat-dialog-title>
+  Detalle de la Deuda
+</h2>
 
-  <ng-container *ngIf="debt; else loading">
-    <div class="space-y-2">
-      <p><strong>ID:</strong> {{ debt.id }}</p>
-      <p><strong>Descripción:</strong> {{ debt.description }}</p>
-      <p><strong>Monto:</strong> ${{ debt.amount }}</p>
-      <p><strong>Fecha:</strong> {{ debt.createdAt | date: 'short' }}</p>
-      <p>
-        <strong>Estado:</strong>
-        <span
-          class="px-2 py-1 rounded text-white"
-          [class.bg-green-500]="debt.paid"
-          [class.bg-red-500]="!debt.paid"
-        >
-          {{ debt.paid ? "Pagada" : "Pendiente" }}
-        </span>
+
+<mat-dialog-content class="pt-3">
+  <ng-container *ngIf="debt; else loadingSpinner">
+
+    <div class="text-center mb-8">
+      <p class="text-lg text-white">Monto total</p>
+      <p class="text-5xl font-bold text-indigo-600">
+        {{ debt.amount | currency:'USD':'symbol':'1.2-2' }}
       </p>
     </div>
+
+    <dl class="space-y-5">
+      <div class="flex items-start">
+        <mat-icon class="text-gray-400 mr-4 mt-1">description</mat-icon>
+        <div>
+          <dt class="text-sm font-medium text-white">Descripción</dt>
+          <dd class="text-md text-white">{{ debt.description }}</dd>
+        </div>
+      </div>
+
+      <div class="flex items-start">
+        <mat-icon class="text-gray-400 mr-4 mt-1">person_outline</mat-icon>
+        <div>
+          <dt class="text-sm font-medium text-white">Usuario</dt>
+          <dd class="text-md text-white">{{ debt.user?.name }} ({{ debt.user?.email }})</dd>
+        </div>
+      </div>
+
+      <div class="flex items-start">
+        <mat-icon class="text-gray-400 mr-4 mt-1">calendar_today</mat-icon>
+        <div>
+          <dt class="text-sm font-medium text-white">Fecha de creación</dt>
+          <dd class="text-md text-white">{{ debt.createdAt | date: 'medium' }}</dd>
+        </div>
+      </div>
+
+      <div class="flex items-start">
+        <mat-icon class="text-gray-400 mr-4 mt-1">flag</mat-icon>
+        <div>
+          <dt class="text-sm font-medium text-white">Estado</dt>
+          <dd>
+            <span class="px-3 py-1 rounded-full text-sm font-semibold" [ngClass]="{
+                'bg-green-100 text-green-800': debt.paid,
+                'bg-yellow-100 text-yellow-800': !debt.paid
+              }">
+              {{ debt.paid ? "Pagada" : "Pendiente" }}
+            </span>
+          </dd>
+        </div>
+      </div>
+
+    </dl>
   </ng-container>
 
-  <ng-template #loading>
-    <p>Cargando deuda...</p>
+  <ng-template #loadingSpinner>
+    <div class="flex justify-center items-center py-20">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
   </ng-template>
-</div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="border-t pt-4">
+  <button (click)="close()"
+    class="px-5 py-2 rounded-lg bg-[#4b5172] text-white font-medium hover:bg-[#3d4259] transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+    Cerrar
+  </button>
+</mat-dialog-actions>
