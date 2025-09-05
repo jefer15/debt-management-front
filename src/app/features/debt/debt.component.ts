@@ -11,6 +11,7 @@ import { DebtDetailComponent } from './debt-detail/debt-detail.component';
 import { DebtFormComponent } from './debt-form/debt-form.component';
 import { CommonModule } from '@angular/common';
 import { Debt, DebtSummary } from './../../core/models/debt/debt.model';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-debt',
@@ -37,6 +38,7 @@ export class DebtComponent implements OnInit {
 
   private _debtService = inject(DebtService);
   private _dialog = inject(MatDialog);
+  private _authService = inject(AuthService);
 
   ngOnInit(): void {
     this.getData();
@@ -177,5 +179,9 @@ export class DebtComponent implements OnInit {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+  }
+
+  logout() {
+    this._authService.logout();
   }
 }
