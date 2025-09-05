@@ -1,27 +1,77 @@
-# DebtManagementFront
+# Debt Management Front
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Frontend de la aplicación **Gestión de Deudas**, desarrollado en **Angular 17**.  
+Permite a los usuarios **registrarse, iniciar sesión, listar deudas, crear nuevas, ver detalles, editarlas, eliminarlas y marcarlas como pagadas**.  
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Tecnologías utilizadas
 
-## Code scaffolding
+- **Angular 17**  
+- **TailwindCSS** – estilos modernos y responsivos  
+- **Angular Material** – componentes UI listos para producción  
+- **SweetAlert2** – alertas y notificaciones  
+- **RxJS** – manejo de estados y observables  
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## Estructura del proyecto
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+src/
+├── app
+│   ├── core
+│   │   ├── guard/          # Guards de autenticación
+│   │   ├── interceptor/    # Interceptores HTTP
+│   │   ├── models/         # Modelos (auth, debt)
+│   │   └── services/       # Servicios (auth, debt)
+│   └── features
+│       ├── auth            # Módulo de autenticación
+│       │   ├── login       # Pantalla de login
+│       │   └── register    # Pantalla de registro
+│       └── debt            # Módulo de gestión de deudas
+│           ├── debt-detail # Vista detalle de deuda
+│           └── debt-form   # Formulario de deuda
+├── assets/                 # Recursos estáticos
+└── environments/           # Configuración de entornos
+```
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Instalación y ejecución local
 
-## Running end-to-end tests
+### Clonar el repositorio
+```bash
+git clone https://github.com/jefer15/debt-management-front.git
+cd debt-management-front
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Instalar dependencias
+```bash
+npm install
+```
 
-## Further help
+### Ejecutar en modo desarrollo
+```bash
+npm start
+```
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Funcionalidades principales
+
+✔️ Pantalla de **Login/Registro**  
+✔️ **Listado de deudas** con filtros (pendientes/pagadas)  
+✔️ **Formulario** para crear/editar deudas  
+✔️ **Vista de detalle** de una deuda  
+✔️ Marcar una deuda como **pagada**  
+✔️ UI moderna, minimalista y responsiva  
+
+---
+
+## Decisiones técnicas
+
+- **Arquitectura modular**: separación entre `core` (servicios, guards, modelos) y `features` (funcionalidades).  
+- **Lazy loading de componentes**: mejora rendimiento cargando solo lo necesario.  
+- **Guards de autenticación**: protección de rutas.  
+- **Servicios centralizados**: manejo de autenticación y deudas desacoplado de la UI.  
+- **TailwindCSS + Angular Material**: combinación para lograr una UI moderna y productiva.  
